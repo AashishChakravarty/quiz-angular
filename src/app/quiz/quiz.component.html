@@ -1,0 +1,53 @@
+<mat-card class="main-card">
+  <mat-card-title class="heading">Health Quiz</mat-card-title>
+  <mat-card-content class="align-center">
+    <form (ngSubmit)="contactForm.form.valid && contactOnSubmit()" #contactForm="ngForm" novalidate
+      *ngIf="isEmailInput">
+      <mat-form-field class="display-flex">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" [(ngModel)]="emailValue" #email="ngModel" placeholder="Email" required
+          pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$">
+        <mat-error *ngIf="contactForm.submitted && email.invalid && email.errors.required">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="contactForm.submitted && email.invalid && email.errors.pattern">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+    <form (ngSubmit)="(questionForm.form.valid && questionOnSubmit());questionForm.resetForm()" #questionForm="ngForm"
+      novalidate *ngIf="isQuestion">
+      <label id="example-radio-group-label">{{question?.question}}</label>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" name="optionId"
+        (change)="changeOptions()" [(ngModel)]="questionValue.question" #optionId="ngModel" required>
+        <mat-radio-button class="example-radio-button" *ngFor="let option of question?.options" [value]="option">
+          {{option.question_option}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field class="display-flex" *ngIf="isOtherAns">
+        <mat-label>Your Answer</mat-label>
+        <input matInput name="other" [(ngModel)]="questionValue.other" #other="ngModel" placeholder="Other answer"
+          required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+
+    </form>
+
+    <mat-list *ngIf="isFinalSubmit">
+      <mat-card-title>Your Answers</mat-card-title>
+      <mat-list-item *ngFor="let answer of answers">
+        <div mat-line>
+          {{answer?.question}}
+        </div>
+        <div mat-line>
+          {{answer?.option}}
+          <div *ngIf="answer?.other">
+            {{answer?.other}}
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>

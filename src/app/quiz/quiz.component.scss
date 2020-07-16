@@ -1,0 +1,29 @@
+.main-card {
+  height: 100vh;
+}
+
+.heading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.align-center {
+  width: 50%;
+  margin: auto;
+}
+
+.display-flex{
+  display: flex;
+}
+
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
